@@ -1,0 +1,16 @@
+body  {
+	font-family: Arial, Helvetica, sans-serif;
+	border: 3px solid white;
+	width: 800px;
+	font-size: 100%;
+	background-image: url("../images/wall.jpg");
+	height: 100%;
+	background-position: center;
+	background-color: white;
+	margin: 0 auto;
+	border: 3px solid red;
+	box-shadow: 0 1px 1px 1px orangered; 
+	padding: 0;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
