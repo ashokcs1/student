@@ -3,16 +3,22 @@ require_once "db.php";
 if (isset($_POST['name'])) {
 $name = $_POST['name'];
 $father_name =$_POST['father_name'];
-$class = $_POST['class']; 
-$section = $_POST['section']; 
-$roll_no = $_POST['class'] . $_POST['section'];
+$class_id = $_POST['class_id'];
+$class_name = str_replace("-","", $_POST['class_name']);
 $phone = $_POST['phone'];
 $address = $_POST['address'];
 $dob = $_POST['dob']; 
 $doa = $_POST['doa'];
-$query_result =  mysqli_query($conn, "INSERT INTO student(name, roll_no, father_name, phone, address, dob, doa) 
+$roll_no = '';
+$query_result = mysqli_query($conn, "SELECT count(*) AS COUNT FROM student WHERE class_id='". $class_id ."'");
+while($row = mysqli_fetch_array($query_result)){  
+    $next_rollno = (int)$row['COUNT']+1;     
+    $roll_no = $class_name . $next_rollno ;
+} 
+
+$query_result =  mysqli_query($conn, "INSERT INTO student(name, roll_no, father_name, phone, address, dob, doa, class_id) 
 VALUES('" . $name . "', '" . $roll_no . "', '" . $father_name . "', '" . $phone . "', '" . $address . "', 
-'" . $dob . "',  '" . $doa . "')");
+'" . $dob . "',  '" . $doa . "',  '" . $class_id . "')");
 if($query_result) {
     echo $query_result;
     header("location: enroll.php");
@@ -28,9 +34,10 @@ mysqli_close($conn);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Student Enrollment Form</title>
-<link rel="stylesheet" href="styles/main.css">
+    <meta charset="UTF-8">
+    <title>Student Enrollment Form</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
 </head>
 <header>
     <img src="./images/student.png" alt="Header Image">
@@ -38,10 +45,14 @@ mysqli_close($conn);
 	<h3>Manage your students information</h3>
 </header>
 <body>
-
-<h2>Registration Form in PHP with Validation</h2>
-
-<p>Please fill all fields in the form</p>
+<script>
+    function setSelectedClassValue(){
+        var val = document.getElementById("class_field");
+        document.getElementById("class_name_field").value = val.options[val.selectedIndex].text;
+        document.getElementById("class_id_field").value = val.options[val.selectedIndex].value;
+    }
+</script>
+<h2>Student Enrollment Form</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <label for="name_field">Name:</label>
     <input class="student-input" type="text" id="name_field" name="name" value="" maxlength="50" required="">
@@ -65,15 +76,24 @@ mysqli_close($conn);
     <input class="student-input" type="date" id="doa" name="doa">
     <br>
     <label for="class_field">Class:</label>
-    <input class="student-input" type="text" id="class_field" name="class" value="" maxlength="50" required="">
-    <span class="text-danger"><?php if (isset($class_error)) echo $class_error; ?></span>
-    <br>
-    <label for="section_field">Section:</label>
-    <input class="student-input" type="text" id="section_field" name="section" value="" maxlength="50" required="">
-    <span class="text-danger"><?php if (isset($section_error)) echo $name_error; ?></span>
+    <select name="class" id="class_field" onchange="setSelectedClassValue()">
+    <?php 
+    $result = mysqli_query($conn, "SELECT * FROM `class`");
+    $class_name = "";
+    echo "<option class='student-input' name='' value='choose'>Choose</option>";
+    while($row = mysqli_fetch_array($result)){       
+        $class_name = $row['class'] . '-'. $row['section_name'];
+       echo "<option class='student-input' name='". $row['id'] ."' 
+                value='". $row['id'] ."'>". $class_name ."</option>";
+    }
+    
+    echo "</select>";
+    echo "<input type='hidden' id='class_name_field' name='class_name'>";
+    echo "<input type='hidden' id='class_id_field' name='class_id'>";
+    ?>
     <br>
     <div class="buttons">
-        <input type="submit" class="button-submit" value="Submit">
+        <input type="submit" class="button-submit" value="Submit" onclick="setSelectedClassValue()">
         <input type="reset" class="button-submit" value="Reset">
     </div>
 </form>

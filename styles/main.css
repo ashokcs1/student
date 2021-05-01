@@ -19,9 +19,12 @@ body  {
 }
 header img {
 	float: left;
+	margin-left: 10px;
 	padding: 10px 30px;
-	width: 100px;
+	width: 150px;
 	height: 100px;
+	border: 3px solid aqua;
+	border-radius: 4px;
 }
 header h2 {
 	font-size: 175%;
@@ -71,4 +74,9 @@ label{
 	background-color: #4CAF50;
 	border-radius: 4px;
 	color: white;
+}
+#class_field{
+	text-align: left;
+	min-width: 250px;
+	border: 3px solid blue;
 }
