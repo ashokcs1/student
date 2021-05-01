@@ -1,5 +1,5 @@
 html {
-	background-color: yellow;
+	background-color: rgb(73, 175, 189);
 }
 body  {
 	font-family: Arial, Helvetica, sans-serif;
@@ -10,8 +10,8 @@ body  {
 	background-position: center;
 	background-color: white;
 	margin: 0 auto;
-	border: 3px solid red;
-	box-shadow: 0 1px 1px 1px orangered; 
+	border: 3px solid rgb(88, 88, 187);
+	box-shadow: 0 1px 1px 1px rgb(88, 88, 187);
 	padding: 0;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -33,7 +33,7 @@ header h3 {
 }
 header {
 	padding: 1.5em 0 2em 0;
-	border-bottom: 3px solid red;
+	border-bottom: 3px solid blueviolet;
 	background-color: white;
 }
 form{
