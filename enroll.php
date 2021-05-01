@@ -1,42 +1,27 @@
 <?php
 require_once "db.php";
-if (isset($_POST['enroll'])) {
-$name = mysqli_real_escape_string($conn, $_POST['name']);
-$father_name = mysqli_real_escape_string($conn, $_POST['father_name']);
-$class = mysqli_real_escape_string($conn, $_POST['class']); 
-$section = mysqli_real_escape_string($conn, $_POST['section']); 
-$roll_no = mysqli_real_escape_string($conn, $_POST['class']) + mysqli_real_escape_string($conn, $_POST['section']);
-$phone = mysqli_real_escape_string($conn, $_POST['phone']);
-$address = mysqli_real_escape_string($conn, $_POST['address']);
-$dob = mysqli_real_escape_string($conn, $_POST['dob']); 
-$doa = mysqli_real_escape_string($conn, $_POST['doa']);
-
-// Name validation for special chars
-if (!preg_match("/^[a-zA-Z ]+$/",$name)) {
-$name_error = "Name must contain only alphabets and space";
-}
-
-if (!preg_match("/^[a-zA-Z ]+$/",$father_name)) {
-    $father_name_error = "Father Name must contain only alphabets and space";
-}
-
-     
-if(strlen($phone) < 10) {
-$phone_error = "Phone number must be minimum of 10 characters";
-}
-
-if (!$error) {
-    $query_result =  mysqli_query($conn, "INSERT INTO student(name, roll_no, father_name, phone, address, dob, doa) 
-                    VALUES('" . $name . "', '" . $roll_no . "', '" . $father_name . "', '" . $phone . "', '" . $address . "', 
-                    '" . $dob . "',  '" . $doa . "')");
+if (isset($_POST['name'])) {
+$name = $_POST['name'];
+$father_name =$_POST['father_name'];
+$class = $_POST['class']; 
+$section = $_POST['section']; 
+$roll_no = $_POST['class'] . $_POST['section'];
+$phone = $_POST['phone'];
+$address = $_POST['address'];
+$dob = $_POST['dob']; 
+$doa = $_POST['doa'];
+$query_result =  mysqli_query($conn, "INSERT INTO student(name, roll_no, father_name, phone, address, dob, doa) 
+VALUES('" . $name . "', '" . $roll_no . "', '" . $father_name . "', '" . $phone . "', '" . $address . "', 
+'" . $dob . "',  '" . $doa . "')");
 if($query_result) {
     echo $query_result;
-header("location: enroll.php");
-exit();
+    header("location: enroll.php");
+    echo "Success: ";
+    exit();
 } else {
-echo "Error: " . $sql . "" . mysqli_error($conn);
-}
-}
+    echo "Error: ". mysqli_error($conn);
+}   
+
 mysqli_close($conn);
 }
 ?>
@@ -45,45 +30,52 @@ mysqli_close($conn);
 <head>
 <meta charset="UTF-8">
 <title>Student Enrollment Form</title>
-<link href="./styles/main.css" rel="stylesheet">
+<link rel="stylesheet" href="styles/main.css">
 </head>
+<header>
+    <img src="./images/student.png" alt="Header Image">
+	<h2>Student Management System</h2>
+	<h3>Manage your students information</h3>
+</header>
 <body>
-<div class="container">
-<div class="row">
-<div class="col-lg-8 col-offset-2">
-<div class="page-header">
+
 <h2>Registration Form in PHP with Validation</h2>
-</div>
+
 <p>Please fill all fields in the form</p>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-<label for="name">Name</label>
-<input type="text" id="name" value="" maxlength="50" required="">
-<span class="text-danger"><?php if (isset($name_error)) echo $name_error; ?></span>
-<br>
-<label for="father_name">Father Name</label>
-<input type="text" id="father_name" value="" maxlength="50" required="">
-<span class="text-danger"><?php if (isset($father_name_error)) echo $father_name_error; ?></span>
-<br>
-<label for="phone">Phone</label>
-<input type="text" id="phone" value="" maxlength="50" required="">
-<span class="text-danger"><?php if (isset($phone_error)) echo $phone_error; ?></span>
-<br>
-<label for="address">Address</label>
-<textarea type="text" id="address" column="50" row="5" required=""></textarea>
-<br>
-<label for="address">Address</label>
-<textarea type="text" id="address" column="50" row="5" required=""></textarea>
-<br>
-<label for="dob">DOB:</label>
-<input type="date" id="dob">
-<br>
-<label for="doa">DOA:</label>
-<input type="date" id="doa">
-<br>
-<input type="submit" class="btn btn-primary" name="enroll" value="submit">
+    <label for="name_field">Name:</label>
+    <input class="student-input" type="text" id="name_field" name="name" value="" maxlength="50" required="">
+    <span class="text-danger"><?php if (isset($name_error)) echo $name_error; ?></span>
+    <br>
+    <label for="father_name_field">Father Name:</label>
+    <input class="student-input" type="text" id="father_name_field" name="father_name" value="" maxlength="50" required>
+    <span class="text-danger"><?php if (isset($father_name_error)) echo $father_name_error; ?></span>
+    <br>
+    <label for="phone_field">Phone:</label>
+    <input class="student-input" type="text" id="phone_field" name="phone" value="" maxlength="50" required>
+    <span class="text-danger"><?php if (isset($phone_error)) echo $phone_error; ?></span>
+    <br>
+    <label for="address_field">Address:</label>
+    <textarea class="student-textarea" type="text" id="address_field" name="address" cols="30" rows="5" required></textarea>
+    <br>
+    <label for="dob_field">DOB:</label>
+    <input class="student-input" type="date" id="dob_field" name="dob">
+    <br>
+    <label for="doa">DOA:</label>
+    <input class="student-input" type="date" id="doa" name="doa">
+    <br>
+    <label for="class_field">Class:</label>
+    <input class="student-input" type="text" id="class_field" name="class" value="" maxlength="50" required="">
+    <span class="text-danger"><?php if (isset($class_error)) echo $class_error; ?></span>
+    <br>
+    <label for="section_field">Section:</label>
+    <input class="student-input" type="text" id="section_field" name="section" value="" maxlength="50" required="">
+    <span class="text-danger"><?php if (isset($section_error)) echo $name_error; ?></span>
+    <br>
+    <div class="buttons">
+        <input type="submit" class="button-submit" value="Submit">
+        <input type="reset" class="button-submit" value="Reset">
+    </div>
 </form>
-</div>
-</div>    
-</div>
 </body>
 </html>

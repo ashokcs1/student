@@ -1,10 +1,12 @@
+html {
+	background-color: yellow;
+}
 body  {
 	font-family: Arial, Helvetica, sans-serif;
 	border: 3px solid white;
 	width: 800px;
 	font-size: 100%;
-	background-image: url("../images/wall.jpg");
-	height: 100%;
+	height: 1000px;
 	background-position: center;
 	background-color: white;
 	margin: 0 auto;
@@ -13,4 +15,60 @@ body  {
 	padding: 0;
 	background-repeat: no-repeat;
 	background-size: cover;
+	text-align: center;
+}
+header img {
+	float: left;
+	padding: 10px 30px;
+	width: 80px;
+	height: 80px;
+}
+header h2 {
+	font-size: 175%;
+	color: blue;
+}
+header h3 {
+	font-size: 130%;
+	font-style: italic;
+}
+header {
+	padding: 1.5em 0 2em 0;
+	border-bottom: 3px solid red;
+	background-color: white;
+}
+form{
+	min-width: 300px;
+	margin: auto;
+	padding: 10px;
+}
+label{
+	display: inline-block; 
+	margin: 10px; 
+	min-width: 150px;
+	text-align: right;
+	font-size: 16px;
+	color: firebrick;
+}
+.student-input{
+	margin: 10px;
+	text-align: left;
+	min-width: 250px;
+	border: 3px solid blue;
+}
+.student-textarea{
+	text-align: left;
+	border: 3px solid blue;
+	margin: 10px 10px 0 8px;
+}
+.buttons{
+	margin-left: 13em;
+}
+.button-submit{
+	width: 100px;
+	padding: 4px;
+	margin: 2em 2em 2em 0em;
+	border: 2px solid black;
+	background-color: #4CAF50;
+	border-radius: 4px;
+	color: white;
 }
