@@ -4,8 +4,8 @@ require_once "db.php";
 if (isset($_POST['class'])) {
     $class = $_POST['class'];
     $section_name = $_POST['section_name'];
-    $teacher = $_POST['teacher'];
-    $query_result =  mysqli_query($conn, "INSERT INTO class(class, section_name, teacher) 
+    $teacher_id = $_POST['teacher_id'];
+    $query_result =  mysqli_query($conn, "INSERT INTO class(class, section_name, teacher_id) 
 VALUES('" . $class . "', '" . $section_name . "', '" . $teacher . "')");
     if ($query_result) {
         echo $query_result;
@@ -26,6 +26,7 @@ VALUES('" . $class . "', '" . $section_name . "', '" . $teacher . "')");
     <meta charset="UTF-8">
     <title>Create Class</title>
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/class.css">
 </head>
 <header>
     <img src="./images/student.png" alt="Header Image">
@@ -35,6 +36,7 @@ VALUES('" . $class . "', '" . $section_name . "', '" . $teacher . "')");
 
 <body>
 
+    <div><a href="view_class.php">Back</a></div>
     <h2>Create Class</h2>
 
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -46,17 +48,17 @@ VALUES('" . $class . "', '" . $section_name . "', '" . $teacher . "')");
         <input class="student-input" type="text" id="section_name" name="section_name" value="" maxlength="3" required>
         <span class="text-danger"><?php if (isset($section_name_error)) echo $father_name_error; ?></span>
         <br>
-        <label for="teacher">Teacher:</label>
-        <select class="student-input" name="teacher" id="teacher" required>
+        <label for="teacher_id">Teacher:</label>
+        <select class="input-select" name="teacher_id" id="teacher_id" required>
             <?php
             // fetch teachers data  
-            $sql_teachers = "SELECT name FROM teacher";
+            $sql_teachers = "SELECT id, name FROM teacher";
             $teacher_result = mysqli_query($conn, $sql_teachers);
             if ($teacher_result->num_rows > 0) {
                 // output data of each row
                 while ($row = $teacher_result->fetch_assoc()) {
             ?>
-                    <option value="<?php echo $row["name"] ?>"><?php echo $row["name"] ?></option>
+                    <option value="<?php echo $row["id"] ?>"><?php echo $row["name"] ?></option>
             <?php
                 }
             }

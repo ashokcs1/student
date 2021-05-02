@@ -5,7 +5,19 @@ td {
   border-collapse: collapse;
 }
 
-table{
-    width: 80%;
-    margin: 0 10%;
+table {
+  width: 90%;
+  margin: 0 5%;
+}
+
+.action-width {
+  width: 150px;
+  min-width: 150px !important;
+}
+
+.input-select {
+  min-width: 260px;
+  margin: 10px;
+  text-align: left;
+  border: 3px solid blue;
 }
