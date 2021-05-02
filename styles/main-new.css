@@ -1,0 +1,113 @@
+html {
+  background-color: #9e479e;
+}
+body {
+  width: 80%;
+  margin: 0 10% !important;
+  height: 100vh;
+}
+header img {
+  width: 50%;
+  margin: 10px 10px 10px 90px;
+  border: 1px black solid;
+  float: left;
+}
+
+.head-section {
+  display: flex;
+}
+
+.head-img {
+  width: 20%;
+}
+
+.heading-section {
+  width: 80%;
+  color: #730073;
+}
+
+.heading-section h2 {
+  font-size: 150%;
+}
+.heading-section h3 {
+  font-size: 120%;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 80%;
+  margin: 0 10%;
+  background-color: #730073;
+  color: white;
+  text-align: center;
+}
+
+.container {
+  background-color: white;
+}
+
+.sub-heading {
+  text-align: center;
+}
+.sub-heading a {
+  text-decoration: none;
+  color: white;
+  background: purple;
+  float: right;
+  margin: 0 10px;
+  width: 150px;
+  border-radius: 5px;
+}
+.sub-heading a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.sub-heading h2 {
+  font-size: 130%;
+  margin: 10px 0;
+}
+
+form {
+  min-width: 300px;
+  margin: auto;
+  padding: 10px;
+}
+label {
+  display: inline-block;
+  margin: 10px;
+  min-width: 150px;
+  text-align: right;
+  font-size: 16px;
+  color: firebrick;
+}
+.student-input {
+  margin: 10px;
+  text-align: left;
+  min-width: 250px;
+  border: 3px solid blue;
+}
+.student-textarea {
+  text-align: left;
+  border: 3px solid blue;
+  margin: 10px 10px 0 8px;
+}
+.buttons {
+  margin-left: 13em;
+}
+.button-submit {
+  width: 100px;
+  padding: 4px;
+  margin: 2em 2em 2em 0em;
+  border: 2px solid black;
+  background-color: #4caf50;
+  border-radius: 4px;
+  color: white;
+}
+#class_field {
+  text-align: left;
+  min-width: 250px;
+  border: 3px solid blue;
+}
