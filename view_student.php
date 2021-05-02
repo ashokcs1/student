@@ -4,10 +4,10 @@ require_once "db.php";
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Student Enrollment Form</title>
-<link rel="stylesheet" href="styles/main.css">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
+    <meta charset="UTF-8">
+    <title>Student Enrollment Form</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
 </head>
 <body>
 <header>
@@ -18,7 +18,7 @@ require_once "db.php";
 <nav id="nav_menu">
     	<ul>
         	<li><a href="./enroll.php">Student Enroll</a></li>
-			<li><a href="./create_class.php">Create class</a></li>
+			<li><a href="./create_class.php">Create class</a></li> 
         	<li><a href="./view_class.php">View Class</a></li>
         	<li><a href="#" class="current">View Student</a></li>
     	</ul>
@@ -31,21 +31,22 @@ require_once "db.php";
     <label for="class_field">Class:</label>
     <select name="class_id" id="class_field" onchange="setSelectedClassValue()">
     <?php 
-    $result = mysqli_query($conn, "SELECT * FROM `class`");
-    $class_name = "";
-    echo "<option class='student-input' name='' value='choose'>Choose</option>";
-    while($row = mysqli_fetch_array($result)){       
-        $class_name = $row['class'] . '-'. $row['section_name'];
-       echo "<option class='student-input' name='". $row['id'] ."' 
+        $result = mysqli_query($conn, "SELECT * FROM `class`");
+        $class_name = "";
+        echo "<option class='student-input' name='' value='choose'>Choose</option>";
+        while($row = mysqli_fetch_array($result)){       
+            $class_name = $row['class'] . '-'. $row['section_name'];
+            echo "<option class='student-input' name='". $row['id'] ."' 
                 value='". $row['id'] ."'>". $class_name ."</option>";
-    }
+        }
     
-    echo "</select>";
+        echo "</select>";
     ?>
     <div class="buttons">
         <input type="submit" class="button-submit" onclick="addStudentData()" Value="Submit"/>
     </div>
 <hr>
+<h3 id="form-title">List of Students in Class: </h3> <h2 id="class_name_value"> </h2>
     <table id="student_table">
         <tr>
             <th>Roll no</th>
@@ -88,6 +89,13 @@ if (isset($_GET['roll_no']) and !empty($_GET['roll_no'])) {
 }
 else if (isset($_GET['class_id'])) {
     $class_id = $_GET['class_id'];
+    $query_result = mysqli_query($conn, "SELECT * FROM class WHERE id='". $class_id ."'");
+    while($row = mysqli_fetch_array($query_result)){  
+        $class_name =  $row['class'] . $row['section_name'];
+        echo "<script>
+                var classNameValue = document.getElementById('class_name_value').innerHTML = '". $class_name ."';
+                </script>";
+    }
     $query_result = mysqli_query($conn, "SELECT * FROM student WHERE class_id='". $class_id ."'");
     while($row = mysqli_fetch_array($query_result)){  
         echo "<script>
@@ -114,5 +122,8 @@ else if (isset($_GET['class_id'])) {
 
 mysqli_close($conn);
 ?>
+<footer>
+        <p>&copy; Copyright Aravind, Ashok. </p>
+</footer>
 </body>
 </html>

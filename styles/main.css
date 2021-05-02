@@ -6,7 +6,7 @@ body  {
 	border: 3px solid white;
 	width: 800px;
 	font-size: 100%;
-	height: 1000px;
+	height: 100%;
 	background-position: center;
 	background-color: white;
 	margin: 0 auto;
@@ -62,6 +62,7 @@ label{
 	text-align: left;
 	border: 3px solid blue;
 	margin: 10px 10px 0 8px;
+	padding: 0 12px;
 }
 .buttons{
 	margin-left: 13em;
@@ -75,9 +76,18 @@ label{
 	border-radius: 4px;
 	color: white;
 }
-#class_field{
+.button-view{
+	width: 150px;
+	padding: 4px;
+	border: 2px solid black;
+	background-color: #4CAF50;
+	border-radius: 4px;
+	color: white;
+}
+#class_field, #teacher_id{
 	text-align: left;
-	min-width: 250px;
+	min-width: 259px;
+	margin: 10px;
 	border: 3px solid blue;
 }
 
@@ -132,14 +142,30 @@ td, tr{
 th{
 	border: 2px solid blueviolet;
 	padding: 10px;
+	color: brown;
 } 
 td{
 	padding: 10px;
 }
 hr{
 	color: blue;
-	margin-bottom: 100px;
+	margin-bottom: 10px;
 }
 p{
 	margin-left: 170px;
+}
+.table-view-section{
+	margin: 20px;
+}
+
+footer {
+	background-color: rgb(201, 72, 72);
+	clear: both;
+	padding: 1em 0;
+	margin: 2em 0 0 0;
+}
+footer p {
+	text-align: left;
+	margin-left: 20em;
+	color: white;
 }

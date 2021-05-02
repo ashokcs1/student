@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Enrollment Form</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
+</head>
+<body>
 <?php
 require_once "db.php";
 if (isset($_POST['name'])) {
@@ -21,25 +30,18 @@ VALUES('" . $name . "', '" . $roll_no . "', '" . $father_name . "', '" . $phone 
 '" . $dob . "',  '" . $doa . "',  '" . $class_id . "')");
 if($query_result) {
     echo $query_result;
-    header("location: enroll.php");
-    echo "Success: ";
+    header("location: enroll.php?message=success");
     exit();
 } else {
     echo "Error: ". mysqli_error($conn);
 }   
-
 mysqli_close($conn);
 }
+
+if (isset($_GET['message'])) {
+    echo "<script>alert('Success!!');</script>";
+}
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Student Enrollment Form</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
-</head>
-<body>
 <script>
     function setSelectedClassValue(){
         var val = document.getElementById("class_field");
@@ -84,7 +86,7 @@ mysqli_close($conn);
     <input class="student-input" type="date" id="doa" name="doa">
     <br>
     <label for="class_field">Class:</label>
-    <select name="class" id="class_field" onchange="setSelectedClassValue()">
+    <select name="class" id="class_field" class="student-input" onchange="setSelectedClassValue()">
     <?php 
     $result = mysqli_query($conn, "SELECT * FROM `class`");
     $class_name = "";
@@ -105,5 +107,8 @@ mysqli_close($conn);
         <input type="reset" class="button-submit" value="Reset">
     </div>
 </form>
+<footer>
+        <p>&copy; Copyright Aravind, Ashok. </p>
+</footer>
 </body>
 </html>

@@ -1,10 +1,10 @@
 <?php
 require_once "db.php";
-if (isset($_POST['action']) && isset($_POST['id'])) {
-    $class_id = $_POST['id'];
+if (isset($_POST['action']) && isset($_POST['class_id'])) {
+    $class_id = $_POST['class_id'];
     if ($_POST['action'] == 'View Enrolled Students') {
         // edit the post with $_POST['id']
-        header("location: view_class_students.php?id=$class_id");
+        header("location: view_student.php?class_id=$class_id");
         echo "Success: ";
         exit();
     }
@@ -19,15 +19,26 @@ $teacher_result = mysqli_query($conn, $sql_teachers);
 
 <head>
     <meta charset="UTF-8">
-    <title>Classes</title>
-    <link rel="stylesheet" href="styles/class.css">
+    <title>Student Enrollment Form</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
 </head>
 
 <body>
-    <div class="sub-heading">
-        <a onclick="showCreateClass()" href="#">Create Class</a>
-        <h2>Classes</h2>
-    </div>
+<header>
+    <img src="./images/student.png" alt="Header Image">
+	<h2>Student Management System</h2>
+	<h3>Manage your students information</h3>
+</header>
+    <nav id="nav_menu">
+    	<ul>
+        	<li><a href="./enroll.php">Student Enroll</a></li>
+			<li><a href="./create_class.php">Create class</a></li> 
+        	<li><a href="#"  class="current">View Class</a></li>
+        	<li><a href="./view_student.php">View Student</a></li>
+    	</ul>
+    </nav>
+    <h2 id="form-title">List of Classes</h2>
 
     <div class="table-view-section">
         <table>
@@ -51,8 +62,8 @@ $teacher_result = mysqli_query($conn, $sql_teachers);
                         <td><?php echo $row["total_students"] ?></td>
                         <td>
                             <form method="post" class="action-width">
-                                <input type="submit" name="action" value="View Enrolled Students" />
-                                <input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
+                                <input type="submit" class="button-view" name="action" value="View Enrolled Students" />
+                                <input type="hidden" name="class_id" value="<?php echo $row['id']; ?>" />
                             </form>
                         </td>
                     </tr>
@@ -64,6 +75,9 @@ $teacher_result = mysqli_query($conn, $sql_teachers);
             </tr>
         </table>
     </div>
+    <footer>
+        <p>&copy; Copyright Aravind, Ashok. </p>
+</footer>
 </body>
 
 </html>
