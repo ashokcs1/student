@@ -11,7 +11,10 @@ if (isset($_POST['action']) && isset($_POST['class_id'])) {
 }
 
 // fetch teachers data  
-$sql_teachers = "SELECT A.id, A.class, A.section_name, A.teacher_name, COUNT(S.id) AS total_students FROM (SELECT C.id, c.class, c.section_name, T.name AS teacher_name FROM class AS C LEFT JOIN teacher AS T ON c.teacher_id = T.id) AS A LEFT JOIN student AS S ON S.class_id =A.id GROUP BY A.id;";
+$sql_teachers = "SELECT A.id, A.class, A.section_name, A.teacher_name, COUNT(S.id) AS total_students 
+FROM 
+(SELECT C.id, C.class, C.section_name, T.name AS teacher_name FROM class AS C LEFT JOIN teacher AS T ON C.teacher_id = T.id) 
+AS A LEFT JOIN student AS S ON S.class_id =A.id GROUP BY A.id;";
 $teacher_result = mysqli_query($conn, $sql_teachers);
 ?>
 <!DOCTYPE html>
