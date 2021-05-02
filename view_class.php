@@ -25,18 +25,18 @@ $teacher_result = mysqli_query($conn, $sql_teachers);
 </head>
 
 <body>
-<header>
-    <img src="./images/student.png" alt="Header Image">
-	<h2>Student Management System</h2>
-	<h3>Manage your students information</h3>
-</header>
+    <header>
+        <img src="./images/student.png" alt="Header Image">
+        <h2>Student Management System</h2>
+        <h3>Manage your students information</h3>
+    </header>
     <nav id="nav_menu">
-    	<ul>
-        	<li><a href="./enroll.php">Student Enroll</a></li>
-			<li><a href="./create_class.php">Create class</a></li> 
-        	<li><a href="#"  class="current">View Class</a></li>
-        	<li><a href="./view_student.php">View Student</a></li>
-    	</ul>
+        <ul>
+            <li><a href="./enroll.php">Student Enroll</a></li>
+            <li><a href="./create_class.php">Create class</a></li>
+            <li><a href="#" class="current">View Class</a></li>
+            <li><a href="./view_student.php">View Student</a></li>
+        </ul>
     </nav>
     <h2 id="form-title">List of Classes</h2>
 
@@ -77,7 +77,7 @@ $teacher_result = mysqli_query($conn, $sql_teachers);
     </div>
     <footer>
         <p>&copy; Copyright Aravind, Ashok. </p>
-</footer>
+    </footer>
 </body>
 
 </html>
