@@ -80,3 +80,63 @@ label{
 	min-width: 250px;
 	border: 3px solid blue;
 }
+
+#nav_menu{
+	margin: 0 auto;
+}
+#nav_menu ul {
+	list-style: none;
+	position: relative;
+	margin: 0;
+	padding: 0;
+}
+#nav_menu ul li {
+	float: left;
+}
+#nav_menu ul ul {
+	display: none;
+	position: absolute;
+	top: 100%;
+}
+#nav_menu ul ul li {
+	float: none;
+	position: relative;
+}
+#nav_menu ul li a {
+	padding: .7em 0px;
+	text-align: center;
+	display: block;
+	width: 200px;
+	text-decoration: none;
+	background-color:blue;
+	color: white;
+}
+#nav_menu ul li a.current {
+	color: #f2a900;
+}
+#nav_menu ul li a:hover, #nav_menu ul li a:focus {
+	background-color: gray;
+}
+
+#form-title{
+	padding: 3em 0 0 0;
+	color: firebrick;
+}
+table{
+	border: 2px solid blueviolet;
+	margin: auto;
+}
+td, tr{
+	border: 2px solid blueviolet;
+}
+th{
+	border: 2px solid blueviolet;
+	padding: 10px;
+} 
+td{
+	padding: 10px;
+}
+hr{
+	color: blue;
+	margin-bottom: 100px;
+}

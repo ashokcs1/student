@@ -32,16 +32,21 @@ mysqli_close($conn);
 <title>Student Enrollment Form</title>
 <link rel="stylesheet" href="styles/main.css">
 </head>
+<body>
 <header>
     <img src="./images/student.png" alt="Header Image">
 	<h2>Student Management System</h2>
 	<h3>Manage your students information</h3>
 </header>
-<body>
-
-<h2>Registration Form in PHP with Validation</h2>
-
-<p>Please fill all fields in the form</p>
+<nav id="nav_menu">
+    	<ul>
+        	<li><a href="./enroll.php" class="current" >Student Enroll</a></li>
+			<li><a href="./create_class.php">Create class</a></li>
+        	<li><a href="#">View Class</a></li>
+        	<li><a href="./view_student.php">View Student</a></li>
+    	</ul>
+</nav>
+<h2 id="form-title">View Class</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <label for="name_field">Name:</label>
     <input class="student-input" type="text" id="name_field" name="name" value="" maxlength="50" required="">

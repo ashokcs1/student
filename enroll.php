@@ -39,11 +39,6 @@ mysqli_close($conn);
     <link rel="stylesheet" href="styles/main.css">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
 </head>
-<header>
-    <img src="./images/student.png" alt="Header Image">
-	<h2>Student Management System</h2>
-	<h3>Manage your students information</h3>
-</header>
 <body>
 <script>
     function setSelectedClassValue(){
@@ -52,7 +47,20 @@ mysqli_close($conn);
         document.getElementById("class_id_field").value = val.options[val.selectedIndex].value;
     }
 </script>
-<h2>Student Enrollment Form</h2>
+<header>
+    <img src="./images/student.png" alt="Header Image">
+	<h2>Student Management System</h2>
+	<h3>Manage your students information</h3>
+</header>
+<nav id="nav_menu">
+    	<ul>
+        	<li><a href="#" class="current" >Student Enroll</a></li>
+			<li><a href="./create_class.php">Create class</a></li>
+        	<li><a href="./view_class.php">View Class</a></li>
+        	<li><a href="./view_student.php">View Student</a></li>
+    	</ul>
+</nav>
+<h2 id="form-title">Student Enrollment Form</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <label for="name_field">Name:</label>
     <input class="student-input" type="text" id="name_field" name="name" value="" maxlength="50" required="">

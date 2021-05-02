@@ -1,29 +1,5 @@
 <?php
 require_once "db.php";
-if (isset($_POST['name'])) {
-$name = $_POST['name'];
-$father_name =$_POST['father_name'];
-$class = $_POST['class']; 
-$section = $_POST['section']; 
-$roll_no = $_POST['class'] . $_POST['section'];
-$phone = $_POST['phone'];
-$address = $_POST['address'];
-$dob = $_POST['dob']; 
-$doa = $_POST['doa'];
-$query_result =  mysqli_query($conn, "INSERT INTO student(name, roll_no, father_name, phone, address, dob, doa) 
-VALUES('" . $name . "', '" . $roll_no . "', '" . $father_name . "', '" . $phone . "', '" . $address . "', 
-'" . $dob . "',  '" . $doa . "')");
-if($query_result) {
-    echo $query_result;
-    header("location: enroll.php");
-    echo "Success: ";
-    exit();
-} else {
-    echo "Error: ". mysqli_error($conn);
-}   
-
-mysqli_close($conn);
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,51 +7,112 @@ mysqli_close($conn);
 <meta charset="UTF-8">
 <title>Student Enrollment Form</title>
 <link rel="stylesheet" href="styles/main.css">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
 </head>
+<body>
 <header>
     <img src="./images/student.png" alt="Header Image">
 	<h2>Student Management System</h2>
 	<h3>Manage your students information</h3>
 </header>
-<body>
-
-<h2>Registration Form in PHP with Validation</h2>
-
-<p>Please fill all fields in the form</p>
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-    <label for="name_field">Name:</label>
-    <input class="student-input" type="text" id="name_field" name="name" value="" maxlength="50" required="">
-    <span class="text-danger"><?php if (isset($name_error)) echo $name_error; ?></span>
-    <br>
-    <label for="father_name_field">Father Name:</label>
-    <input class="student-input" type="text" id="father_name_field" name="father_name" value="" maxlength="50" required>
-    <span class="text-danger"><?php if (isset($father_name_error)) echo $father_name_error; ?></span>
-    <br>
-    <label for="phone_field">Phone:</label>
-    <input class="student-input" type="text" id="phone_field" name="phone" value="" maxlength="50" required>
-    <span class="text-danger"><?php if (isset($phone_error)) echo $phone_error; ?></span>
-    <br>
-    <label for="address_field">Address:</label>
-    <textarea class="student-textarea" type="text" id="address_field" name="address" cols="30" rows="5" required></textarea>
-    <br>
-    <label for="dob_field">DOB:</label>
-    <input class="student-input" type="date" id="dob_field" name="dob">
-    <br>
-    <label for="doa">DOA:</label>
-    <input class="student-input" type="date" id="doa" name="doa">
-    <br>
+<nav id="nav_menu">
+    	<ul>
+        	<li><a href="./enroll.php" class="current" >Student Enroll</a></li>
+			<li><a href="./create_class.php">Create class</a></li>
+        	<li><a href="./view_class.php">View Class</a></li>
+        	<li><a href="#">View Student</a></li>
+    	</ul>
+</nav>
+<h2 id="form-title">View Student</h2>
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
+    <label for="roll_no_field">Roll No:</label>
+    <input class="student-input" type="text" id="roll_no_field" name="roll_no">
+    <p>----  Or ----</p>
     <label for="class_field">Class:</label>
-    <input class="student-input" type="text" id="class_field" name="class" value="" maxlength="50" required="">
-    <span class="text-danger"><?php if (isset($class_error)) echo $class_error; ?></span>
-    <br>
-    <label for="section_field">Section:</label>
-    <input class="student-input" type="text" id="section_field" name="section" value="" maxlength="50" required="">
-    <span class="text-danger"><?php if (isset($section_error)) echo $name_error; ?></span>
-    <br>
+    <select name="class_id" id="class_field" onchange="setSelectedClassValue()">
+    <?php 
+    $result = mysqli_query($conn, "SELECT * FROM `class`");
+    $class_name = "";
+    echo "<option class='student-input' name='' value='choose'>Choose</option>";
+    while($row = mysqli_fetch_array($result)){       
+        $class_name = $row['class'] . '-'. $row['section_name'];
+       echo "<option class='student-input' name='". $row['id'] ."' 
+                value='". $row['id'] ."'>". $class_name ."</option>";
+    }
+    
+    echo "</select>";
+    ?>
     <div class="buttons">
-        <input type="submit" class="button-submit" value="Submit">
-        <input type="reset" class="button-submit" value="Reset">
+        <input type="submit" class="button-submit" onclick="addStudentData()" Value="Submit"/>
     </div>
+<hr>
+    <table id="student_table">
+        <tr>
+            <th>Roll no</th>
+            <th>Name</th>
+            <th>Father Name</th>
+            <th>Phone</th>
+            <th>DOB</th>
+        </tr>
+    </table>
 </form>
+<script>
+    var table = document.getElementById('student_table');
+    table.style.visibility = 'hidden';
+</script>
+<?php
+if (isset($_GET['roll_no']) and !empty($_GET['roll_no'])) {
+    $roll_no = $_GET['roll_no'];
+    $query_result = mysqli_query($conn, "SELECT * FROM student WHERE roll_no='". $roll_no ."'");
+    while($row = mysqli_fetch_array($query_result)){  
+        echo "<script>
+        addStudentData();
+        var table = document.getElementById('student_table');
+        table.style.visibility = 'visible';
+            function addStudentData() {
+                var row = table.insertRow(1);
+                var rollNo = row.insertCell(0);
+                var name = row.insertCell(1);
+                var fatherName = row.insertCell(2);
+                var phone = row.insertCell(3);
+                var dob = row.insertCell(4);
+                rollNo.innerHTML ='". $row['roll_no'] ."';
+                name.innerHTML ='".   $row['name'] ."';
+                fatherName.innerHTML ='".   $row['father_name'] ."';
+                phone.innerHTML ='".   $row['phone'] ."';
+                dob.innerHTML ='".  $row['dob'] ."';
+                table.style.visibility = 'visible';
+            }
+        </script>";
+    }  
+}
+else if (isset($_GET['class_id'])) {
+    $class_id = $_GET['class_id'];
+    $query_result = mysqli_query($conn, "SELECT * FROM student WHERE class_id='". $class_id ."'");
+    while($row = mysqli_fetch_array($query_result)){  
+        echo "<script>
+        addStudentData();
+        var table = document.getElementById('student_table');
+        table.style.visibility = 'visible';
+            function addStudentData() {
+                var row = table.insertRow(1);
+                var rollNo = row.insertCell(0);
+                var name = row.insertCell(1);
+                var fatherName = row.insertCell(2);
+                var phone = row.insertCell(3);
+                var dob = row.insertCell(4);
+                rollNo.innerHTML ='". $row['roll_no'] ."';
+                name.innerHTML ='".   $row['name'] ."';
+                fatherName.innerHTML ='".   $row['father_name'] ."';
+                phone.innerHTML ='".   $row['phone'] ."';
+                dob.innerHTML ='".  $row['dob'] ."';
+                table.style.visibility = 'visible';
+            }
+        </script>";
+    }   
+}
+
+mysqli_close($conn);
+?>
 </body>
 </html>
