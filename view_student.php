@@ -17,10 +17,10 @@ require_once "db.php";
 </header>
 <nav id="nav_menu">
     	<ul>
-        	<li><a href="./enroll.php" class="current" >Student Enroll</a></li>
+        	<li><a href="./enroll.php">Student Enroll</a></li>
 			<li><a href="./create_class.php">Create class</a></li>
         	<li><a href="./view_class.php">View Class</a></li>
-        	<li><a href="#">View Student</a></li>
+        	<li><a href="#" class="current">View Student</a></li>
     	</ul>
 </nav>
 <h2 id="form-title">View Student</h2>

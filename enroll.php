@@ -54,7 +54,7 @@ mysqli_close($conn);
 </header>
 <nav id="nav_menu">
     	<ul>
-        	<li><a href="#" class="current" >Student Enroll</a></li>
+        	<li><a href="#" class="current">Student Enroll</a></li>
 			<li><a href="./create_class.php">Create class</a></li>
         	<li><a href="./view_class.php">View Class</a></li>
         	<li><a href="./view_student.php">View Student</a></li>
